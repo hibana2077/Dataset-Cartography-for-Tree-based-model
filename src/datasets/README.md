@@ -8,4 +8,6 @@
 -->
 # Datasets
 
-Data sources : [Kaggle](https://www.kaggle.com/datasets/hibana2077/lung-cancer-histopathological-images-features)
+我們使用多個資料及來進行實驗，這裡是我們使用的資料集。
+
+## Datasets
