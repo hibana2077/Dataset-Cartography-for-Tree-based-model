@@ -1,4 +1,8 @@
 from tqdm import tqdm
+from sklearn.utils._testing import ignore_warnings
+from sklearn.exceptions import ConvergenceWarning
+import warnings
+warnings.filterwarnings("ignore")
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -9,6 +13,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 
 # define model training function
+@ignore_warnings(category=ConvergenceWarning)
 def log_reg_train(X_train, y_train, X_test, y_test, model_params):
     prob = []
     correct = []

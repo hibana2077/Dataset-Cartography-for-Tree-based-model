@@ -193,13 +193,13 @@ try:
         test_confusion_matrix = test_confusion_matrix.tolist()
         
         # save stacking model training results to experiment record
-        EXP_REC["stacking_model"] = {}
-        EXP_REC["stacking_model"]["test_accuracy"] = test_accuracy
-        EXP_REC["stacking_model"]["test_confusion_matrix"] = test_confusion_matrix
-        EXP_REC["stacking_model"]["test_classification_report"] = test_classification_report
-        EXP_REC["stacking_model"]["train_accuracy"] = train_accuracy
-        EXP_REC["stacking_model"]["train_confusion_matrix"] = train_confusion_matrix
-        EXP_REC["stacking_model"]["train_classification_report"] = train_classification_report
+        EXP_REC[f"{model_name}_stacking"] = {}
+        EXP_REC[f"{model_name}_stacking"]["test_accuracy"] = test_accuracy
+        EXP_REC[f"{model_name}_stacking"]["test_confusion_matrix"] = test_confusion_matrix
+        EXP_REC[f"{model_name}_stacking"]["test_classification_report"] = test_classification_report
+        EXP_REC[f"{model_name}_stacking"]["train_accuracy"] = train_accuracy
+        EXP_REC[f"{model_name}_stacking"]["train_confusion_matrix"] = train_confusion_matrix
+        EXP_REC[f"{model_name}_stacking"]["train_classification_report"] = train_classification_report
         rprint("[bold green]Training Completed![/bold green]")
     
     # save experiment record

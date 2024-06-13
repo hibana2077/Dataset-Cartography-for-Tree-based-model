@@ -1,8 +1,8 @@
 train:
-  data_dir: ../datasets/Bank_Churn/
-  out_dir: ../output/Bank_Churn/
-  dataset_name: "Bank_Churn"
-  target: "Exited"
+  data_dir: ../datasets/Academic_Success/
+  out_dir: ../output/Academic_Success/
+  dataset_name: "Academic_Success"
+  target: "Target"
   models:
     - name: "LogisticRegression"
       params_range:
