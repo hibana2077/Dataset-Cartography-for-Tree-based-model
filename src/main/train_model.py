@@ -20,7 +20,7 @@ def log_reg_train(X_train, y_train, X_test, y_test, model_params):
     test_classification_report = {}
     # model_params = {'C': [0.1, 1, 10, 100, 1000], max_iter: [100, 200, 300, 400, 500]}
     for c, max_iter in tqdm(model_params):
-        model = LogisticRegression(C=c, max_iter=max_iter)
+        model = LogisticRegression(C=c, max_iter=max_iter, n_jobs=-1)
         model.fit(X_train, y_train)
         y_pred_train = model.predict_proba(X_train)
         prob.append(y_pred_train[np.arange(len(y_train)), y_train])
@@ -45,7 +45,7 @@ def random_forest_train(X_train, y_train, X_test, y_test, model_params):
     test_classification_report = {}
     # model_params = {'n_estimators': [50, 100, 150, 200], 'max_depth': [10, 20, 30, 40, 50]}
     for n_estimators, max_depth in tqdm(model_params):
-        model = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth)
+        model = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth, n_jobs=-1)
         model.fit(X_train, y_train)
         y_pred_train = model.predict_proba(X_train)
         prob.append(y_pred_train[np.arange(len(y_train)), y_train])
