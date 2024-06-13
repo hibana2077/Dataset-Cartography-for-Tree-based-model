@@ -1,8 +1,8 @@
 train:
-  data_dir: ../datasets/Academic_Success/
-  out_dir: ../output/Academic_Success/
-  dataset_name: "Academic_Success"
-  target: "Target"
+  data_dir: ../datasets/Reservation_Cancellation/
+  out_dir: ../output/Reservation_Cancellation/
+  dataset_name: "Reservation_Cancellation"
+  target: "booking_status"
   models:
     - name: "LogisticRegression"
       params_range:
