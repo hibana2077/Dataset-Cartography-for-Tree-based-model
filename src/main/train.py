@@ -11,6 +11,7 @@ from tqdm import tqdm
 from rich import print as rprint
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -63,10 +64,14 @@ TARGET = config['train']["target"]
 train_df = pd.read_csv(DATA_PATH+"train.csv")
 test_df = pd.read_csv(DATA_PATH+"test.csv")
 
+# print col
+rprint("[bold green]Columns:[/bold green] {}".format(train_df.columns.tolist()))
+rprint("[bold green]Data Shape:[/bold green] {}".format(train_df.shape))
+
 # define data preprocessing pipeline
 data_preprocess = Pipeline([
-    ('label_encoding', LabelEncoder()),
-    ('standard_scaling', StandardScaler())
+    ('one_hot_encoding', OneHotEncoder(handle_unknown='ignore')),
+    ('standard_scaling', StandardScaler(with_mean=False))
 ])
 
 # preprocess data
