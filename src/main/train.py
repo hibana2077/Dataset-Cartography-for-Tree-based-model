@@ -77,9 +77,11 @@ data_preprocess = Pipeline([
 
 # preprocess data
 X_train = data_preprocess.fit_transform(train_df.drop(TARGET, axis=1))
+X_train = pd.DataFrame(X_train.toarray())
 y_train = train_df[TARGET]
 
 X_test = data_preprocess.transform(test_df.drop(TARGET, axis=1))
+X_test = pd.DataFrame(X_test.toarray())
 y_test = test_df[TARGET]
 
 y_train = y_train.astype(int)
@@ -108,6 +110,10 @@ try:
             prob, correct, train_accuracy, test_accuracy, train_confusion_matrix, train_classification_report, test_confusion_matrix, test_classification_report = gradient_boosting_train(X_train, y_train, X_test, y_test, model_params)
         else:
             raise Exception("Invalid Model Name")
+        
+        train_confusion_matrix = {k:v.tolist() for k,v in train_confusion_matrix.items()}
+        test_confusion_matrix = {k:v.tolist() for k,v in test_confusion_matrix.items()}
+
         # save model training results to experiment record
         EXP_REC[model_name] = {}
         EXP_REC[model_name]["train_accuracy"] = train_accuracy
@@ -138,9 +144,9 @@ try:
         plt.title('Datasets Cartography')
         plt.savefig(OUTPUT_PATH + model_name + "_cartography.png")
         correctness_min, correctness_max = np.min(correctness), np.max(correctness)
+        rprint(f"[bold green]Correctness Range: {correctness_min} ~ {correctness_max}[/bold green]")
         # pick range
         correctness_range = [[min_i, min_i + 0.3] for min_i in np.arange(correctness_min, 1.2, 0.4)]
-        rprint(correctness_range)
 
         pick = []
         for j in range(len(correctness_range)):
@@ -155,12 +161,11 @@ try:
         temp_model_list = []
         for idx in tqdm(range(len(pick_train_x))):
             if len(pick_train_x[idx]) == 0:
-                print("No data in this range")
                 continue
             if model_name == "LogisticRegression":
-                model = LogisticRegression(C=decrease_C(idx), max_iter=decrease_max_iter(idx))
+                model = LogisticRegression(C=decrease_C(idx), max_iter=decrease_max_iter(idx), n_jobs=-1)
             elif model_name == "RandomForest":
-                model = RandomForestClassifier(n_estimators=decrease_n_estimators(idx), max_depth=decrease_max_depth(idx))
+                model = RandomForestClassifier(n_estimators=decrease_n_estimators(idx), max_depth=decrease_max_depth(idx), n_jobs=-1)
             elif model_name == "DecisionTree":
                 model = DecisionTreeClassifier(max_depth=decrease_max_depth(idx))
             elif model_name == "GradientBoosting":
@@ -178,11 +183,14 @@ try:
         y_pred = stacking_model.predict(X_test)
         test_accuracy = accuracy_score(y_test, y_pred)
         test_confusion_matrix = confusion_matrix(y_test, y_pred)
-        test_classification_report = classification_report(y_test, y_pred)
+        test_classification_report = classification_report(y_test, y_pred, output_dict=True)
         y_pred_train = stacking_model.predict(X_train)
         train_accuracy = accuracy_score(y_train, y_pred_train)
         train_confusion_matrix = confusion_matrix(y_train, y_pred_train)
-        train_classification_report = classification_report(y_train, y_pred_train)
+        train_classification_report = classification_report(y_train, y_pred_train, output_dict=True)
+
+        train_confusion_matrix = train_confusion_matrix.tolist()
+        test_confusion_matrix = test_confusion_matrix.tolist()
         
         # save stacking model training results to experiment record
         EXP_REC["stacking_model"] = {}
@@ -195,7 +203,7 @@ try:
         rprint("[bold green]Training Completed![/bold green]")
     
     # save experiment record
-    file_name = CONFIG_PATH + CONFIG_PATH.split("/")[-1] + "_exp_rec.json"
+    file_name = OUTPUT_PATH + DATASET_NAME + "_exp_rec.json"
     with open(file_name, "w") as file:
         json.dump(EXP_REC, file)
     rprint("[bold green]Experiment Record Saved![/bold green]")

@@ -6,16 +6,12 @@ train:
   models:
     - name: "LogisticRegression"
       params_range:
-        C: [0.1, 1.0, 10.0]
-        max_iter: [100, 200, 300]
-    - name: "RandomForestClassifier"
+        C: [0.1, 0.5, 10.0]
+        max_iter: [30, 50, 300]
+    - name: "RandomForest"
       params_range:
         n_estimators: [100, 200, 300]
         max_depth: [5, 10, 15]
-    - name: "DecisionTreeClassifier"
+    - name: "DecisionTree"
       params_range:
-        max_depth: [5, 10, 15]
-    - name: "GradientBoostingClassifier"
-      params_range:
-        n_estimators: [100, 200, 300]
         max_depth: [5, 10, 15]
