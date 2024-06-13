@@ -1,0 +1,20 @@
+train:
+  data_dir: ../datasets/Binary_Classification_with_a_Bank_Churn_Dataset/
+  out_dir: ../output/Binary_Classification_with_a_Bank_Churn_Dataset/
+  target: "Exited"
+  model:
+    - name: "LogisticRegression"
+      params_range:
+        C: [0.1, 1.0, 10.0]
+        max_iter: [100, 200, 300]
+    - name: "RandomForestClassifier"
+      params_range:
+        n_estimators: [100, 200, 300]
+        max_depth: [5, 10, 15]
+    - name: "DecisionTreeClassifier"
+      params_range:
+        max_depth: [5, 10, 15]
+    - name: "GradientBoostingClassifier"
+      params_range:
+        n_estimators: [100, 200, 300]
+        max_depth: [5, 10, 15]
