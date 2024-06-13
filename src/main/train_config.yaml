@@ -1,6 +1,7 @@
 train:
   data_dir: ../datasets/Bank_Churn/
   out_dir: ../output/Bank_Churn/
+  dataset_name: "Bank_Churn"
   target: "Exited"
   models:
     - name: "LogisticRegression"

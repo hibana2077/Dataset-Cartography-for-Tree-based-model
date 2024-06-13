@@ -58,6 +58,7 @@ with open(CONFIG_PATH, "r") as file:
 # read parameters
 DATA_PATH = config['train']['data_dir']
 OUTPUT_PATH = config['train']['out_dir']
+DATASET_NAME = config['train']['dataset_name']
 TARGET = config['train']["target"]
 
 # read data
@@ -203,7 +204,8 @@ except Exception as e:
     rprint("[bold red]Error:[/bold red] {}".format(str(e)))
     # save experiment record
     EXP_REC["error"] = str(e)
-    file_name = OUTPUT_PATH + DATA_PATH.split("/")[-1] + "_exp_rec.json"
+    if not os.path.exists(OUTPUT_PATH):os.mkdir(OUTPUT_PATH)
+    file_name = OUTPUT_PATH + DATASET_NAME + "_exp_rec.json"
     with open(file_name, "w") as file:
         json.dump(EXP_REC, file)
     exit(1)
