@@ -11,6 +11,14 @@ from tqdm import tqdm
 from rich import print as rprint
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import VotingClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
 from sklearn.pipeline import Pipeline
 from train_model import log_reg_train, random_forest_train, decision_tree_train, gradient_boosting_train
 
@@ -136,6 +144,54 @@ try:
         for i in pick:
             pick_train_x.append(X_train.iloc[i, :])
             pick_train_y.append(y_train.iloc[i])
+
+        temp_model_list = []
+        for idx in tqdm(range(len(pick_train_x))):
+            if len(pick_train_x[idx]) == 0:
+                print("No data in this range")
+                continue
+            if model_name == "LogisticRegression":
+                model = LogisticRegression(C=decrease_C(idx), max_iter=decrease_max_iter(idx))
+            elif model_name == "RandomForest":
+                model = RandomForestClassifier(n_estimators=decrease_n_estimators(idx), max_depth=decrease_max_depth(idx))
+            elif model_name == "DecisionTree":
+                model = DecisionTreeClassifier(max_depth=decrease_max_depth(idx))
+            elif model_name == "GradientBoosting":
+                model = GradientBoostingClassifier(n_estimators=decrease_n_estimators(idx), max_depth=decrease_max_depth(idx))
+            else:
+                raise Exception("Invalid Model Name")
+
+            model.fit(pick_train_x[idx], pick_train_y[idx])
+            temp_model_list.append(model)
+
+        model_list = [(f"model_{i}", model) for i, model in enumerate(temp_model_list)]
+        rprint("[bold green]Making Stacking Model...[/bold green]")
+        stacking_model = VotingClassifier(estimators=model_list, voting='soft', n_jobs=-1)
+        stacking_model.fit(X_train, y_train)
+        y_pred = stacking_model.predict(X_test)
+        test_accuracy = accuracy_score(y_test, y_pred)
+        test_confusion_matrix = confusion_matrix(y_test, y_pred)
+        test_classification_report = classification_report(y_test, y_pred)
+        y_pred_train = stacking_model.predict(X_train)
+        train_accuracy = accuracy_score(y_train, y_pred_train)
+        train_confusion_matrix = confusion_matrix(y_train, y_pred_train)
+        train_classification_report = classification_report(y_train, y_pred_train)
+        
+        # save stacking model training results to experiment record
+        EXP_REC["stacking_model"] = {}
+        EXP_REC["stacking_model"]["test_accuracy"] = test_accuracy
+        EXP_REC["stacking_model"]["test_confusion_matrix"] = test_confusion_matrix
+        EXP_REC["stacking_model"]["test_classification_report"] = test_classification_report
+        EXP_REC["stacking_model"]["train_accuracy"] = train_accuracy
+        EXP_REC["stacking_model"]["train_confusion_matrix"] = train_confusion_matrix
+        EXP_REC["stacking_model"]["train_classification_report"] = train_classification_report
+        rprint("[bold green]Training Completed![/bold green]")
+    
+    # save experiment record
+    file_name = CONFIG_PATH + CONFIG_PATH.split("/")[-1] + "_exp_rec.json"
+    with open(file_name, "w") as file:
+        json.dump(EXP_REC, file)
+    rprint("[bold green]Experiment Record Saved![/bold green]")
 
 except Exception as e:
     rprint("[bold red]Error:[/bold red] {}".format(str(e)))
