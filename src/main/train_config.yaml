@@ -2,7 +2,7 @@ train:
   data_dir: ../datasets/Bank_Churn/
   out_dir: ../output/Bank_Churn/
   target: "Exited"
-  model:
+  models:
     - name: "LogisticRegression"
       params_range:
         C: [0.1, 1.0, 10.0]

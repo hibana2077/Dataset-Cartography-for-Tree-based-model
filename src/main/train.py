@@ -203,7 +203,7 @@ except Exception as e:
     rprint("[bold red]Error:[/bold red] {}".format(str(e)))
     # save experiment record
     EXP_REC["error"] = str(e)
-    file_name = CONFIG_PATH + CONFIG_PATH.split("/")[-1] + "_exp_rec.json"
+    file_name = OUTPUT_PATH + DATA_PATH.split("/")[-1] + "_exp_rec.json"
     with open(file_name, "w") as file:
         json.dump(EXP_REC, file)
     exit(1)
