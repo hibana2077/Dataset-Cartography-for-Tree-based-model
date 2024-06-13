@@ -55,7 +55,8 @@ with open(CONFIG_PATH, "r") as file:
     config = yaml.safe_load(file)
 
 # read parameters
-DATA_PATH = config['train']['data_path']
+DATA_PATH = config['train']['data_dir']
+OUTPUT_PATH = config['train']['out_dir']
 TARGET = config['train']["target"]
 
 # read data
@@ -129,7 +130,7 @@ try:
         plt.xlim(0, 1)
         plt.ylim(0, 1)
         plt.title('Datasets Cartography')
-        plt.savefig(DATA_PATH + model_name + "_cartography.png")
+        plt.savefig(OUTPUT_PATH + model_name + "_cartography.png")
         correctness_min, correctness_max = np.min(correctness), np.max(correctness)
         # pick range
         correctness_range = [[min_i, min_i + 0.3] for min_i in np.arange(correctness_min, 1.2, 0.4)]

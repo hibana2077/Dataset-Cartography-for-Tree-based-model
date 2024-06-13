@@ -1,6 +1,6 @@
 train:
-  data_dir: ../datasets/Binary_Classification_with_a_Bank_Churn_Dataset/
-  out_dir: ../output/Binary_Classification_with_a_Bank_Churn_Dataset/
+  data_dir: ../datasets/Bank_Churn/
+  out_dir: ../output/Bank_Churn/
   target: "Exited"
   model:
     - name: "LogisticRegression"
