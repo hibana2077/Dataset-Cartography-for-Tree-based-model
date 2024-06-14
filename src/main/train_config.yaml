@@ -1,8 +1,8 @@
 train:
-  data_dir: ../datasets/Reservation_Cancellation/
-  out_dir: ../output/Reservation_Cancellation/
-  dataset_name: "Reservation_Cancellation"
-  target: "booking_status"
+  data_dir: ../datasets/Mobile_Price/
+  out_dir: ../output/Mobile_Price/
+  dataset_name: "Mobile_Price"
+  target: "price_range"
   models:
     - name: "LogisticRegression"
       params_range:

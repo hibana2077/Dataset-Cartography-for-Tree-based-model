@@ -44,7 +44,7 @@ def decrease_C(index:int) -> float:
     return max(0.1, base - index * 20)
 
 def decrease_n_estimators(index: int) -> int:
-    base = 100  # 可以設定一個基礎數值
+    base = 220  # 可以設定一個基礎數值
     return max(10, base - index * 20)  # 確保 n_estimators 不會小於某個最小值，例如 10
 
 def decrease_max_depth(index: int) -> int:
