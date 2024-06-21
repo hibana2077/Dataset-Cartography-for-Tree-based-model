@@ -2,7 +2,7 @@
  * @Author: hibana2077 hibana2077@gmail.com
  * @Date: 2024-06-21 10:37:03
  * @LastEditors: hibana2077 hibana2077@gmail.com
- * @LastEditTime: 2024-06-21 11:17:54
+ * @LastEditTime: 2024-06-21 11:30:57
  * @FilePath: \Dataset-Cartography-for-Tree-based-model\docs\related_work.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -36,6 +36,8 @@ Data Cartography is a method that maps data points according to their difficulty
     4. **Focus Shift Recommendation**: The results from the use of Data Maps suggest a shift from prioritizing data quantity to enhancing data quality, which could lead to the development of more robust models and improved generalization capabilities outside of the training distribution.
 
     5. **Practical Application and Implications**: This method of mapping and diagnosing datasets can provide valuable insights into the dynamics of model training and offer a more nuanced understanding of data quality and its impact on machine learning models.
+
+    [(Swabha, 2020)](https://aclanthology.org/2020.emnlp-main.746)
 
 ## Conclusion
 
