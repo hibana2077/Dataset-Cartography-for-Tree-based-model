@@ -2,7 +2,7 @@
  * @Author: hibana2077 hibana2077@gmail.com
  * @Date: 2024-06-21 10:37:03
  * @LastEditors: hibana2077 hibana2077@gmail.com
- * @LastEditTime: 2024-06-22 11:29:33
+ * @LastEditTime: 2024-06-22 11:36:29
  * @FilePath: \Dataset-Cartography-for-Tree-based-model\docs\related_work.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -47,3 +47,5 @@ In the field of ensemble learning, several notable studies have emerged that con
 Further exploring the efficiency of ensemble techniques, [Cawood & van Zyl, 2021](https://consensus.app/papers/evaluating-state-forecasting-ensembles-metalearning-cawood/73196bfe67b655d18cdb9628290de42a/?utm_source=chatgpt) focused on the Exponential Smoothing-Recurrent Neural Network (ES-RNN), comparing its performance against various other ensembling strategies in forecasting contexts. [Pavlyshenko, 2021](https://consensus.app/papers/using-stacking-approaches-machine-learning-models-pavlyshenko/bcd49b370771530abd7924a59d8412a7/?utm_source=chatgpt) also highlighted the effectiveness of stacking techniques in improving ensemble performance for time series forecasting and logistic regression.
 
 Lastly, the survey by [Mienye & Sun, 2021](https://consensus.app/papers/survey-ensemble-learning-concepts-algorithms-mienye/f3767787a7cc549bb850dcd5b5e07933/?utm_source=chatgpt) covered a broad range of ensemble methods, offering an in-depth look at their mathematical and algorithmic frameworks, which are crucial for both researchers and practitioners in the field. These studies collectively advance our understanding of how ensemble learning can be effectively utilized for model improvement across various domains.
+
+<!-- However, 仍然比較少研究把 Data Cartography 應用到資料分割後做再訓練 ，因此 ， 我們研究了Data Cartography 應用到資料分割分法以及將分割資料做再訓練的效能評比 -->
